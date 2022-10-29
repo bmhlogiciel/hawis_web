@@ -1,0 +1,192 @@
+{% extends 'base.html'%}
+
+{% block head %}
+    <title>{{title}}</title>
+{% endblock head %}
+
+{% block body %}
+
+<!-- ================ start banner area ================= -->	
+<section class="blog-banner-area" id="category">
+  <div class="container h-100">
+    <div class="blog-banner">
+      <div class="text-center">
+        <h1>H a w i s </h1>
+        <p > حوس برنامج ذكي يسهل عليك البحث السريع عن كل ما تريد </p>
+        <p class="fs-6 text-muted"> تمارس نشاط معين وتريد زيادة قائمة عملائك سجل الآن في عالم حوس </p>
+        <a class="button button-primary" style="font-size: 22px;" href = "{{ url_for('person_register') }}"> سـجــل الآن</a>
+        <a class="button button-primary" href="{{ url_for('configuration') }}" >Configuration</a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ================ end banner area ================= -->
+
+	<!-- ================ category section start ================= -->		 
+  <section class="section-margin--small mb-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-3 col-lg-4 col-md-5">
+          <div class="sidebar-categories">
+            <div class="head">Choisir une Activitie</div>
+            <ul class="main-categories">
+              <li class="common-filter">
+                <form action="#">
+                  <ul>
+                    {% for activity in activities %}
+                      <li class="filter-list">
+                        <input class="pixel-radio" type="radio" id="{{activity}}" name="{{activity}}">
+                        <label for="{{activity}}">{{activity.name}}<span>(29)</span></label>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </form>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-filter">
+            <div class="top-filter-head">Choisir la Wilaya</div>
+            <div class="common-filter">
+              <div class="head">wilaya</div>
+              <form action="#">
+                <ul>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">Tous les Wilaya</label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">Annaba</label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Constantine</label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">Setif</label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">Batna</label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Alger</label></li>
+                </ul>
+              </form>
+            </div>
+          </div>
+        	
+            
+        </div>
+        <div class="col-xl-9 col-lg-8 col-md-7">
+          <form action="/person_search" method="POST" enctype="multipart/form-data" class="row login_form" id="register_form" >  
+            <div class="filter-bar d-flex flex-wrap align-items-center">
+
+              <div class="form-group col-md-5">
+                <label for="activity" >نشاطك</label>
+                <select class="form-control" name="activity_search">
+                  <option value=""> -- All -- </option>
+                  {% for activity in activities %}
+                      <option name="{{activity}}">{{activity.name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+          
+              <div class="form-group col-md-5 ">
+                <label for="wilaya">الولاية </label> 
+                <select class="form-control" name="wilaya_search">	
+                  <option value=""> -- All -- </option>  <!-- Need to figure out how to pass an all option-->		
+                  <option name="wilaya">Adrar</option>
+                  <option name="wilaya">Chelef</option>
+                  <option name="wilaya">Agouat</option>
+                  <option name="wilaya">...</option>
+                  <option name="wilaya">Annaba</option>
+                  <option name="wilaya">Guelma</option>
+                  <option name="wilaya">Constantine</option>		
+                </select>
+              </div>
+              <div class="form-group col-md-2 mt-4">
+                <button class="btn btn-primary mt-3 w-100" href = "{{ url_for('person_search') }}" >البحث </button>
+              </div>
+            
+          </form>
+        </div>
+      
+        <!--================ Start List of Persons =================-->  
+          <section class="lattest-product-area pb-40 category-list">
+              <!-- Start Table -->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Activité النشاط</th>
+                        <th scope="col">Dénomination التسمية</th>
+                        <th scope="col">Phone الهاتف</th>
+                        <th scope="col">Wilaya الولاية</th>
+                        <th scope="col">Zone المنطقة</th>
+                        <th scope="col">image</th>
+                    </tr>
+                    </thead>
+                    <br>
+                    <tbody>
+                        {% for person in persons.items %}
+                            <tr>
+                              <td>{{ person.activity }}</td>
+                              <td>{{ person.name }}</td>
+                              <td>{{ person.phone }}</td>
+                              <td>{{ person.wilaya }}</td>
+                              <td>{{ person.zone }}</td>
+                              <td><img src="{{ url_for('static',filename='img/persons/'+person.image_file)}}" width="50" alt=""></td>
+                            </tr>          
+                      
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <!-- Start of Pagination -->
+                <nav aria-label="Page navigation example"></nav>
+                <ul class="pagination">
+                    {% if persons.has_prev %}
+                      <li class="page-item"> <a class="page-link" href="{{url_for('index',page=persons.prev_num)}}"> Previous </a> </li>
+                    {% else %}  
+                      <li class="page-item"> <a class="page-link btn disabled" href="#">Previous</a></li>
+                    {% endif %}  
+
+                    {% for page in persons.iter_pages( left_edge=3, right_edge=3 ) %}
+                      {% if page %}
+                          {% if page == persons.page %}
+                            <li class="page-item active"> <a class="page-link" href="{{ url_for('index', page=page) }}">{{ page }}</a></li>
+                          {% else %}  
+                            <li class="page-item"> <a class="page-link" href="{{ url_for('index', page=page)}}"> {{ page }}</a></li>
+                          {% endif %}
+                      {% else %}
+                        <li class="page-item disabled" id="example_ellipsis"> <a class="page-link" href=""> ...</a></li>
+                      {% endif %}
+                    {% endfor %}
+                    {% if persons.has_next %}
+                      <li class="page-item"> <a class="page-link" href="{{url_for('index',page=persons.next_num)}}"> Next </a> </li>
+                    {% else %}  
+                      <li class="page-item"> <a class="page-link btn disabled" href="#">Next</a> </li>
+                    {% endif %}  
+                </ul>
+                <!-- End of Pagination-->
+              <!-- End Table -->         
+          </section> 
+        </div>
+      </div>
+  </section> 
+  <!--================ End List of persons =================-->  
+	  
+	<!-- ================ Start VIP List   ================= -->	
+	<section class="related-product-area">
+		<div class="container">
+			<div class="section-intro pb-60px pt-3 text-center ">
+        <h2>Liste <span class="section-intro__style"> VIP</span></h2>
+      </div>
+			<div class="row mt-30">
+        {% for person_vip in persons_vip %}
+          <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+            <div class="single-search-product-wrapper">
+                <div class="single-search-product d-flex">
+                  <img class="img-fluid" src="{{ url_for('static',filename='img/persons/'+person_vip.image_file)}}" alt="" width="350" height="800">
+                  <div class="desc">
+                      <div class="activitie">{{ person_vip.activity }}</div>
+                      <a href="#" class="title">{{ person_vip.name }}</a>
+                      <div class="activitie">{{ person_vip.phone }}</div>
+                      <div class="activitie">{{ person_vip.wilaya }}</div> 
+                      <div class="activitie">{{ person_vip.zone }}</div> 
+                  </div>
+                </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+		</div>
+	</section>
+	<!-- ================ end VIP List  ================= -->		
+
+  {% endblock body%}

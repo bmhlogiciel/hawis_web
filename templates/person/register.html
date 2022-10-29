@@ -1,0 +1,97 @@
+{% extends 'base.html'%}
+
+{% block head%}
+    <title>{{title}}</title>
+{% endblock head%}
+
+{% block body %}
+
+
+<!--================Login Box Area =================-->
+<section class="login_box_area ">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="login_box_img">
+					<div class="hover">
+						<h4>Vous n'avez pas un compte Hawis ?</h4>
+						<p>Donc vous devez le créer maintenant pour bénéficier les services du notre site Hawis</p>
+						<h4>إذا لم يكن لديك حساب  </h4>
+						<p>قم بإنشاء حسابك الآن</p>
+						
+					</div>
+				</div>
+			
+			</div>
+
+			<div class="col-lg-6">
+				<div class="login_form_inner register_form_inner">
+										
+					<form action="/person_add" method="POST" enctype="multipart/form-data" class="row login_form" id="register_form" >
+
+						<div class="form-group col-md-12">
+							<label for="activity" >نشاطك</label>
+							<select class="form-control" name="activity">
+								{% for activity in activities %}
+									<option name="{{activity}}">{{activity.name}}</option>
+								{% endfor %}
+							</select>
+						</div>
+
+						<div class="col-md-12 form-group">
+							<label for="name" >التسمية</label>
+							<input type="text" class="form-control" id="name" name="name" placeholder="Dénomination" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Dénomination'">
+						</div>
+
+						<div class="col-md-12 form-group">
+							<label for="phone" >الهاتف</label>
+							<input type="text" class="form-control" id="phone" name="phone" placeholder="Phone" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone'">
+						</div>
+						
+						<div class="col-md-12 form-group">
+							<label for="wilaya">الولاية </label> 
+							<select class="form-control" name="wilaya">			
+								<option name="wilaya">Adrar</option>
+								<option name="wilaya">Chelef</option>
+								<option name="wilaya">Agouat</option>
+								<option name="wilaya">...</option>
+								<option name="wilaya">Annaba</option>
+								<option name="wilaya">Guelma</option>
+								<option name="wilaya">Constantine</option>		
+							</select>
+						</div>
+						<div class="col-md-12 form-group">
+							<label for="zone" >المنطقة</label>
+							<input type="text" class="form-control" id="zone" name="zone" placeholder="Zone" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Zone'">
+						</div>
+
+
+						<div class="col-md-12 form-group ">
+							<!--<label for="image_file"> الصورة</label>-->
+							<input type="file" class="form-control" name = "image_file" id = "image_file" placeholder = "your image">
+						</div>
+						<div class="col-md-12 form-group">
+                        <div class="row">
+						    <div class="col-6">
+								<button class="btn btn-primary mt-3 w-100" type="submit" >تسجيل الدخول</button>
+							</div>
+							<div class="col-6">
+								<button class="btn btn-secondary mt-3 w-100" href = "{{ url_for('index') }}">إلغاء التسجيل</button>
+							</div>
+							<!--<button type="submit" value="submit" class="button button-register w-100">Enregistrer</button>-->
+						</div>
+						
+                        </div>
+
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--================End Login Box Area =================-->
+
+
+
+{% endblock body%}

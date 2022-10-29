@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/style.css') }}">
+
+    <script src="{{ url_for('static',filename = 'js/bootstrap.js') }}"> </script>
+    <script src="{{ url_for('static',filename = 'js/jquery.js') }}"> </script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    
+
+
+    {% block head %}
+  
+    {% endblock head %}
+
+</head>
+<body>  
+
+<!--================ Start Header Menu Area =================-->
+<header class="header ">
+  <div class="main_menu">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a href="{{ url_for('index') }}" class="d-flex align-items-center text-dark text-decoration-none">
+          <img src="{{ url_for('static',filename='img/logo.png')}}" alt="">
+          <span class="fs-4"> حوس</span>
+        </a>
+      </div>
+      
+      <form action="/name_search" method="POST" enctype="multipart/form-data" class="d-flex" id="name_search">
+        <input class="form-control me-2" type="search" name="name_search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit" name="submit" value="search">Search</button>
+      </form>    
+    </nav>
+  </div>
+</header>
+<!--================ End Header Menu Area =================-->
+    
+{% block body %}
+
+{% endblock body %}
+
+<!--================ Start Footer  =================-->
+<div class="footer-bottom ">
+  <div class="container">
+    <footer class="py-1 mb-1">
+      <div class="row">
+        <div class="col-5">
+          <h5>Adress</h5>
+          Nouvelle Ville Ali Mendjeli Constantine - Algeria
+        </div>
+        <div class="col-4">
+          <h5>Email</h5>
+          bmhwin@gmail.com      
+        </div>
+        <div class="col-3">
+          <h5>Phone</h5>
+          +213 558 954 465 
+          +213 776 471 646
+        </div>
+      </div>
+      <div class="d-flex justify-content-between py-3 my-3 border-top">
+        <p>&copy; Copyright &copy; All rights reserved | This Site Web is made by <i class="fa fa-heart" aria-hidden="true"></i> <a href="https://bmhcode.com" target="_blank">BMHcode</a> 
+      </div>
+    </footer>  
+  </div>
+</div>
+<!--================ End Footer  =================-->
+
+</body>
+</html>

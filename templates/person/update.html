@@ -1,0 +1,139 @@
+{% extends 'base.html'%}
+
+{% block head%}
+<title>{{title}}</title>
+{% endblock head%}
+
+{% block body%}
+
+
+<!--================Login Box Area =================-->
+<section class="login_box_area ">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="login_box_img">
+					<div class="hover">
+						<h4>Modifier votre compte Hawis...</h4>
+						<h4>Voulez vous faire des modifications sur votre compte Hawis ?</h4>
+						<h4>إجراء بعض التغييرات على حسابك</h4>
+					</div>
+				</div>
+			
+			</div>
+
+			<div class="col-lg-6">
+				<div class="login_form_inner register_form_inner">
+					
+					
+					<form action="/person_update/{{person.id}}" method="POST" enctype="multipart/form-data" class="row login_form" id="register_form" >
+                       
+						<div class="form-group col-md-12">
+							<label for="activity" >نشاطك</label>
+							<select class="form-control" name="activity">
+                                {% for activity in activities %}
+
+                                <option value = {{activity.name}}
+                                {% if activity.name == person.activity %}
+                                    selected
+                                {% endif %}
+                                >{{activity.name}}</option>
+                            
+                            	{% endfor %}
+
+							</select>
+						</div>
+
+						<div class="col-md-12 form-group">
+							<label for="name" >التسمية</label>
+							<input type="text" class="form-control" id="name" name="name" value = "{{person.name}}" placeholder="Dénomination" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Dénomination'">
+						</div>
+
+						<div class="col-md-12 form-group">
+							<label for="phone" >الهاتف</label>
+							<input type="text" class="form-control" id="phone" name="phone" value = "{{person.phone}}" placeholder="Phone" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone'">
+						</div>
+						
+						<div class="col-md-12 form-group">
+							<label for="wilaya">الولاية </label> 
+							<select class="form-control" name="wilaya">			
+								<option  
+									{% if person.wilaya == 'Adrar' %}
+										selected
+									{% endif %}>Adrar
+								</option>
+								<option  
+									{% if person.wilaya == 'Chelef' %}
+										selected
+									{% endif %}>Chelef
+								</option>
+
+								<option  
+									{% if person.wilaya == 'Agouat' %}
+										selected
+									{% endif %}>Agouat
+								</option>
+								<option name="wilaya">...</option>
+								<option  
+									{% if person.wilaya == 'Annaba' %}
+										selected
+									{% endif %}>Annaba
+								</option>
+								<option  
+									{% if person.wilaya == 'Guelma' %}
+										selected
+									{% endif %}>Guelma
+								</option>
+								<option 
+									{% if person.wilaya == 'Constantine' %}
+										selected
+									{% endif %}>Constantine
+								</option>		
+							</select>
+						</div>
+
+						<div class="col-md-12 form-group">
+							<label for="zone" >المنطقة</label>
+							<input type="text" class="form-control" id="zone" name="zone" value = "{{person.zone}}" placeholder="Zone" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Zone'">
+						</div>
+						<div class="col-md-12 form-group ">
+							<!--<label for="image_file"> الصورة</label>-->
+							<input type="file" class="form-control" name = "image_file" id = "image_file" placeholder = "your image">
+						</div>
+						<div class="row">
+                        <div class="form-check col-6"> 
+                            {% if person.show_me == True %}
+                            	Show <input class="form-check-input " type="checkbox" name = "show_checkbox" checked>
+                            {% else %}
+                                Show <input class="form-check-input" type="checkbox" name = "show_checkbox" >
+                            {% endif %}
+                        </div> 
+						<div class="form-check col-6"> 
+                            {% if person.vip == True %}
+                             	VIP <input class="form-check-input " type="checkbox" name = "vip_checkbox" checked>
+                            {% else %}
+                            	VIP <input class="form-check-input" type="checkbox" name = "vip_checkbox" >
+                            {% endif %}
+                        </div> 
+						</div>
+						<div class="col-md-12 form-group">
+							<div class="row">
+								<div class="col-6">
+								<button class="btn btn-primary mt-3 w-100" type="submit" >تسجيل التغييرات</button>
+								</div>
+								<div class="col-6">
+								<button class="btn btn-secondary mt-3 w-100" href = "{{ url_for('index') }}">إلغاء التغيير</button>
+								</div>
+							</div>
+						</div>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--================End Login Box Area =================-->
+
+
+{% endblock body%}
